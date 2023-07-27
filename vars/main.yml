@@ -23,6 +23,10 @@ vector_config:
       database: logs
       endpoint: "{{clickhouse_url}}"
       table: dummy_logs
+      auth:
+        user: "{{ clickhouse_user }}"
+        password: "{{ clickhouse_password }}"
+        strategy: basic
       compression: gzip
   api:
     enabled: true
