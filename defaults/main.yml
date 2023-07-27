@@ -1,0 +1,4 @@
+---
+# vars file for vector-role
+clickhouse_url: http://192.168.56.10:8123
+vector_version: "0.31.0-1"

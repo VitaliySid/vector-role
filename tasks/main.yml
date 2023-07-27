@@ -1,0 +1,20 @@
+---
+- include_tasks: "install/{{ ansible_pkg_mgr }}.yml"
+
+- name: Redefine vector config name
+  become: true
+  tags: vector_config
+  ansible.builtin.lineinfile:
+    path: /etc/default/vector
+    regexp: "VECTOR_CONFIG="
+    line: VECTOR_CONFIG=/etc/vector/config.yaml
+- name: Create vector config
+  become: true
+  tags: vector_config
+  ansible.builtin.copy:
+    dest: /etc/vector/config.yaml
+    content: |
+      {{ vector_config | to_nice_yaml(indent=2) }}
+  notify: restart vector
+- name: Flush handlers
+  meta: flush_handlers

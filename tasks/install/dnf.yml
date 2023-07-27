@@ -1,0 +1,5 @@
+- name: Install vector package
+  become: true
+  ansible.builtin.dnf:
+    name: "https://packages.timber.io/vector/latest/vector-{{ vector_version }}.{{ ansible_architecture }}.rpm"
+    disable_gpg_check: true
