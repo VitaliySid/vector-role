@@ -4,3 +4,34 @@ clickhouse_url: http://192.168.56.10:8123
 vector_version: "0.31.0-1"
 clickhouse_user: ""
 clickhouse_password: ""
+vector_config:
+  sources:
+    dummy_logs:
+      type: demo_logs
+      format: syslog
+      interval: 1
+  transforms:
+    parse_logs:
+      inputs:
+        - dummy_logs
+      source: |-
+        . = parse_syslog!(string!(.message))
+        .timestamp = to_string(.timestamp)
+        .timestamp = slice!(.timestamp, start:0, end: -1)
+      type: remap
+  sinks:
+    to_clickhouse:
+      type: clickhouse
+      inputs:
+        - parse_logs
+      database: logs
+      endpoint: "{{clickhouse_url}}"
+      table: dummy_logs
+      auth:
+        user: "{{ clickhouse_user }}"
+        password: "{{ clickhouse_password }}"
+        strategy: basic
+      compression: gzip
+  api:
+    enabled: true
+    address: "0.0.0.0:8686"

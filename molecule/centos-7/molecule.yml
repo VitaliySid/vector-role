@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: centos-7
-    image: centos:7
+    image: local/c7-systemd
     pre_build_image: true
     privileged: true
     command: /usr/sbin/init
@@ -18,6 +18,11 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup
 provisioner:
   name: ansible
+  inventory:
+    links:
+      hosts: ../resources/inventory/hosts.yml
+      group_vars: ../resources/inventory/group_vars/
+      host_vars: ../resources/inventory/host_vars/
   playbooks:
     verify: ../resources/tests/verify.yml
 verifier:

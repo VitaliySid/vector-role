@@ -1,0 +1,19 @@
+---
+vector_version: "0.31.0-1"
+vector_config:
+  sources:
+    dummy_logs:
+      type: demo_logs
+      format: syslog
+      interval: 1
+  sinks:
+    my_sink:
+      type: console
+      inputs:
+        - dummy_logs
+      target: stdout
+      encoding:
+        codec: json
+  api:
+    enabled: true
+    address: "0.0.0.0:8686"

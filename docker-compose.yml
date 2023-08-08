@@ -1,0 +1,9 @@
+version: '3'
+services:
+  centos7:
+    image: local/c7-systemd
+    container_name: centos7-sd
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
