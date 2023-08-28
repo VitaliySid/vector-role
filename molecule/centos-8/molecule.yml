@@ -17,13 +17,13 @@ platforms:
       - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup
-    env:
-      ANSIBLE_USER: ansible
-      SUDO_GROUP: sudo
-      DEPLOY_GROUP: deployer
-      container: docker
 provisioner:
   name: ansible
+  inventory:
+    links:
+      hosts: ../resources/inventory/hosts.yml
+      group_vars: ../resources/inventory/group_vars/
+      host_vars: ../resources/inventory/host_vars/
   playbooks:
     verify: ../resources/tests/verify.yml
 verifier:
