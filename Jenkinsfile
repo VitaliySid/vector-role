@@ -1,12 +1,5 @@
 pipeline {
     stages {
-        stage('Get role') {
-            steps {
-                dir('vector-role') {
-                    git branch: 'main', credentialsId: 'git', url: 'git@github.com:VitaliySid/vector-role.git'
-                }
-            }
-        }
         stage('Install molecule') {
             steps {
                 sh 'pip3 install molecule==3.4.0 molecule-docker'
