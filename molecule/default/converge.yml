@@ -2,6 +2,7 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include vector-role"
-      ansible.builtin.include_role:
-        name: "vector-role"
+    - name: Install sudo
+      package:
+        name: 
+          - sudo
